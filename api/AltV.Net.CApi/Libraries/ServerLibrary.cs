@@ -35,6 +35,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<IntPtr, byte> ConnectionInfo_GetCloudAuthResult { get; }
         public delegate* unmanaged[Cdecl]<IntPtr, int*, nint> ConnectionInfo_GetCloudID { get; }
         public delegate* unmanaged[Cdecl]<IntPtr, long> ConnectionInfo_GetDiscordUserID { get; }
+        public delegate* unmanaged[Cdecl]<IntPtr, int*, nint> ConnectionInfo_GetHwId3 { get; }
         public delegate* unmanaged[Cdecl]<IntPtr, ulong> ConnectionInfo_GetHwIdExHash { get; }
         public delegate* unmanaged[Cdecl]<IntPtr, ulong> ConnectionInfo_GetHwIdHash { get; }
         public delegate* unmanaged[Cdecl]<IntPtr, uint> ConnectionInfo_GetID { get; }
@@ -194,6 +195,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, HeadBlendData*, void> Player_GetHeadBlendData { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, Rgba*, void> Player_GetHeadBlendPaletteColor { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, HeadOverlay*, void> Player_GetHeadOverlay { get; }
+        public delegate* unmanaged[Cdecl]<nint, int*, nint> Player_GetHwId3 { get; }
         public delegate* unmanaged[Cdecl]<nint, ulong> Player_GetHwidExHash { get; }
         public delegate* unmanaged[Cdecl]<nint, ulong> Player_GetHwidHash { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> Player_GetInteriorLocation { get; }
@@ -488,7 +490,7 @@ namespace AltV.Net.CApi.Libraries
 
     public unsafe class ServerLibrary : IServerLibrary
     {
-        public readonly uint Methods = 1779;
+        public readonly uint Methods = 1781;
         public delegate* unmanaged[Cdecl]<nint, nint, void> BaseObject_DeleteSyncedMetaData { get; }
         public delegate* unmanaged[Cdecl]<nint, nint[], nint[], ulong, void> BaseObject_SetMultipleSyncedMetaData { get; }
         public delegate* unmanaged[Cdecl]<nint, nint, nint, void> BaseObject_SetSyncedMetaData { get; }
@@ -513,6 +515,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<IntPtr, byte> ConnectionInfo_GetCloudAuthResult { get; }
         public delegate* unmanaged[Cdecl]<IntPtr, int*, nint> ConnectionInfo_GetCloudID { get; }
         public delegate* unmanaged[Cdecl]<IntPtr, long> ConnectionInfo_GetDiscordUserID { get; }
+        public delegate* unmanaged[Cdecl]<IntPtr, int*, nint> ConnectionInfo_GetHwId3 { get; }
         public delegate* unmanaged[Cdecl]<IntPtr, ulong> ConnectionInfo_GetHwIdExHash { get; }
         public delegate* unmanaged[Cdecl]<IntPtr, ulong> ConnectionInfo_GetHwIdHash { get; }
         public delegate* unmanaged[Cdecl]<IntPtr, uint> ConnectionInfo_GetID { get; }
@@ -672,6 +675,7 @@ namespace AltV.Net.CApi.Libraries
         public delegate* unmanaged[Cdecl]<nint, HeadBlendData*, void> Player_GetHeadBlendData { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, Rgba*, void> Player_GetHeadBlendPaletteColor { get; }
         public delegate* unmanaged[Cdecl]<nint, byte, HeadOverlay*, void> Player_GetHeadOverlay { get; }
+        public delegate* unmanaged[Cdecl]<nint, int*, nint> Player_GetHwId3 { get; }
         public delegate* unmanaged[Cdecl]<nint, ulong> Player_GetHwidExHash { get; }
         public delegate* unmanaged[Cdecl]<nint, ulong> Player_GetHwidHash { get; }
         public delegate* unmanaged[Cdecl]<nint, uint> Player_GetInteriorLocation { get; }
@@ -1010,6 +1014,8 @@ namespace AltV.Net.CApi.Libraries
         private static nint ConnectionInfo_GetCloudIDFallback(IntPtr _connectionInfo, int* _size) => throw new Exceptions.OutdatedSdkException("ConnectionInfo_GetCloudID", "ConnectionInfo_GetCloudID SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate long ConnectionInfo_GetDiscordUserIDDelegate(IntPtr _connectionInfo);
         private static long ConnectionInfo_GetDiscordUserIDFallback(IntPtr _connectionInfo) => throw new Exceptions.OutdatedSdkException("ConnectionInfo_GetDiscordUserID", "ConnectionInfo_GetDiscordUserID SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint ConnectionInfo_GetHwId3Delegate(IntPtr _connectionInfo, int* _size);
+        private static nint ConnectionInfo_GetHwId3Fallback(IntPtr _connectionInfo, int* _size) => throw new Exceptions.OutdatedSdkException("ConnectionInfo_GetHwId3", "ConnectionInfo_GetHwId3 SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate ulong ConnectionInfo_GetHwIdExHashDelegate(IntPtr _connectionInfo);
         private static ulong ConnectionInfo_GetHwIdExHashFallback(IntPtr _connectionInfo) => throw new Exceptions.OutdatedSdkException("ConnectionInfo_GetHwIdExHash", "ConnectionInfo_GetHwIdExHash SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate ulong ConnectionInfo_GetHwIdHashDelegate(IntPtr _connectionInfo);
@@ -1328,6 +1334,8 @@ namespace AltV.Net.CApi.Libraries
         private static void Player_GetHeadBlendPaletteColorFallback(nint _player, byte _id, Rgba* _headBlendPaletteColor) => throw new Exceptions.OutdatedSdkException("Player_GetHeadBlendPaletteColor", "Player_GetHeadBlendPaletteColor SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate void Player_GetHeadOverlayDelegate(nint _player, byte _overlayID, HeadOverlay* _headOverlay);
         private static void Player_GetHeadOverlayFallback(nint _player, byte _overlayID, HeadOverlay* _headOverlay) => throw new Exceptions.OutdatedSdkException("Player_GetHeadOverlay", "Player_GetHeadOverlay SDK method is outdated. Please update your module nuget");
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate nint Player_GetHwId3Delegate(nint _player, int* _size);
+        private static nint Player_GetHwId3Fallback(nint _player, int* _size) => throw new Exceptions.OutdatedSdkException("Player_GetHwId3", "Player_GetHwId3 SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate ulong Player_GetHwidExHashDelegate(nint _player);
         private static ulong Player_GetHwidExHashFallback(nint _player) => throw new Exceptions.OutdatedSdkException("Player_GetHwidExHash", "Player_GetHwidExHash SDK method is outdated. Please update your module nuget");
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)] private delegate ulong Player_GetHwidHashDelegate(nint _player);
@@ -1917,7 +1925,7 @@ namespace AltV.Net.CApi.Libraries
         public ServerLibrary(Dictionary<ulong, IntPtr> funcTable)
         {
             if (!funcTable.TryGetValue(0, out var capiHash)) Outdated = true;
-            else if (capiHash == IntPtr.Zero || *(ulong*)capiHash != 11629663074568386340UL) Outdated = true;
+            else if (capiHash == IntPtr.Zero || *(ulong*)capiHash != 17036908327259488488UL) Outdated = true;
             BaseObject_DeleteSyncedMetaData = (delegate* unmanaged[Cdecl]<nint, nint, void>) GetUnmanagedPtr<BaseObject_DeleteSyncedMetaDataDelegate>(funcTable, 8228424877092269355UL, BaseObject_DeleteSyncedMetaDataFallback);
             BaseObject_SetMultipleSyncedMetaData = (delegate* unmanaged[Cdecl]<nint, nint[], nint[], ulong, void>) GetUnmanagedPtr<BaseObject_SetMultipleSyncedMetaDataDelegate>(funcTable, 1390762125822890831UL, BaseObject_SetMultipleSyncedMetaDataFallback);
             BaseObject_SetSyncedMetaData = (delegate* unmanaged[Cdecl]<nint, nint, nint, void>) GetUnmanagedPtr<BaseObject_SetSyncedMetaDataDelegate>(funcTable, 8002999088966424231UL, BaseObject_SetSyncedMetaDataFallback);
@@ -1942,6 +1950,7 @@ namespace AltV.Net.CApi.Libraries
             ConnectionInfo_GetCloudAuthResult = (delegate* unmanaged[Cdecl]<IntPtr, byte>) GetUnmanagedPtr<ConnectionInfo_GetCloudAuthResultDelegate>(funcTable, 7415605567391116903UL, ConnectionInfo_GetCloudAuthResultFallback);
             ConnectionInfo_GetCloudID = (delegate* unmanaged[Cdecl]<IntPtr, int*, nint>) GetUnmanagedPtr<ConnectionInfo_GetCloudIDDelegate>(funcTable, 7998061229071288348UL, ConnectionInfo_GetCloudIDFallback);
             ConnectionInfo_GetDiscordUserID = (delegate* unmanaged[Cdecl]<IntPtr, long>) GetUnmanagedPtr<ConnectionInfo_GetDiscordUserIDDelegate>(funcTable, 4175744399917476392UL, ConnectionInfo_GetDiscordUserIDFallback);
+            ConnectionInfo_GetHwId3 = (delegate* unmanaged[Cdecl]<IntPtr, int*, nint>) GetUnmanagedPtr<ConnectionInfo_GetHwId3Delegate>(funcTable, 11277934694982627403UL, ConnectionInfo_GetHwId3Fallback);
             ConnectionInfo_GetHwIdExHash = (delegate* unmanaged[Cdecl]<IntPtr, ulong>) GetUnmanagedPtr<ConnectionInfo_GetHwIdExHashDelegate>(funcTable, 3151831504154255688UL, ConnectionInfo_GetHwIdExHashFallback);
             ConnectionInfo_GetHwIdHash = (delegate* unmanaged[Cdecl]<IntPtr, ulong>) GetUnmanagedPtr<ConnectionInfo_GetHwIdHashDelegate>(funcTable, 11409383581668438027UL, ConnectionInfo_GetHwIdHashFallback);
             ConnectionInfo_GetID = (delegate* unmanaged[Cdecl]<IntPtr, uint>) GetUnmanagedPtr<ConnectionInfo_GetIDDelegate>(funcTable, 8080268107975854795UL, ConnectionInfo_GetIDFallback);
@@ -2101,6 +2110,7 @@ namespace AltV.Net.CApi.Libraries
             Player_GetHeadBlendData = (delegate* unmanaged[Cdecl]<nint, HeadBlendData*, void>) GetUnmanagedPtr<Player_GetHeadBlendDataDelegate>(funcTable, 12996031514192232278UL, Player_GetHeadBlendDataFallback);
             Player_GetHeadBlendPaletteColor = (delegate* unmanaged[Cdecl]<nint, byte, Rgba*, void>) GetUnmanagedPtr<Player_GetHeadBlendPaletteColorDelegate>(funcTable, 6875264309357036667UL, Player_GetHeadBlendPaletteColorFallback);
             Player_GetHeadOverlay = (delegate* unmanaged[Cdecl]<nint, byte, HeadOverlay*, void>) GetUnmanagedPtr<Player_GetHeadOverlayDelegate>(funcTable, 18242810182906526031UL, Player_GetHeadOverlayFallback);
+            Player_GetHwId3 = (delegate* unmanaged[Cdecl]<nint, int*, nint>) GetUnmanagedPtr<Player_GetHwId3Delegate>(funcTable, 12439246743379924111UL, Player_GetHwId3Fallback);
             Player_GetHwidExHash = (delegate* unmanaged[Cdecl]<nint, ulong>) GetUnmanagedPtr<Player_GetHwidExHashDelegate>(funcTable, 424368865670330442UL, Player_GetHwidExHashFallback);
             Player_GetHwidHash = (delegate* unmanaged[Cdecl]<nint, ulong>) GetUnmanagedPtr<Player_GetHwidHashDelegate>(funcTable, 9546723288515311389UL, Player_GetHwidHashFallback);
             Player_GetInteriorLocation = (delegate* unmanaged[Cdecl]<nint, uint>) GetUnmanagedPtr<Player_GetInteriorLocationDelegate>(funcTable, 16961931856292652951UL, Player_GetInteriorLocationFallback);

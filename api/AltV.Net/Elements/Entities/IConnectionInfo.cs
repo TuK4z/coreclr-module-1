@@ -12,6 +12,7 @@ public interface IConnectionInfo : IBaseObject
     ulong SocialId { get; }
     ulong HardwareIdHash { get; }
     ulong HardwareIdExHash { get; }
+    string HardwareId3 { get; }
     string AuthToken { get; }
     bool IsDebug { get; }
     string Branch { get; }

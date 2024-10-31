@@ -100,6 +100,18 @@ namespace AltV.Net.Async.Elements.Entities
             }
         }
 
+        public string HardwareId3
+        {
+            get
+            {
+                lock (Player)
+                {
+                    if (!AsyncContext.CheckIfExistsOrCachedNullable(Player)) return default;
+                    return Player.HardwareId3;
+                }
+            }
+        }
+
         public string AuthToken
         {
             get

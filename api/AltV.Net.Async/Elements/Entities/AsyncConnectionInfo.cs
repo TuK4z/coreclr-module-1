@@ -63,6 +63,19 @@ public class AsyncConnectionInfo : AsyncBaseObject, IConnectionInfo, IAsyncConve
             }
         }
     }
+
+    public string HardwareId3
+    {
+        get
+        {
+            lock (ConnectionInfo)
+            {
+                if (!AsyncContext.CheckIfExistsOrCachedNullable(ConnectionInfo)) return default;
+                return ConnectionInfo.HardwareId3;
+            }
+        }
+    }
+
     public string AuthToken
     {
         get
@@ -74,6 +87,7 @@ public class AsyncConnectionInfo : AsyncBaseObject, IConnectionInfo, IAsyncConve
             }
         }
     }
+    
     public bool IsDebug
     {
         get

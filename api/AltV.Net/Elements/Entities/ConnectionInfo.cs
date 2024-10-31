@@ -11,7 +11,6 @@ namespace AltV.Net.Elements.Entities;
 
 public class ConnectionInfo : BaseObject, IConnectionInfo
 {
-
     public IntPtr ConnectionInfoNativePointer { get; }
     public override IntPtr NativePointer => ConnectionInfoNativePointer;
 
@@ -32,7 +31,8 @@ public class ConnectionInfo : BaseObject, IConnectionInfo
     }
 
 
-    public ConnectionInfo(ICore core, IntPtr nativePointer, uint id) : base(core, GetBaseObjectPointer(core, nativePointer), BaseObjectType.ConnectionInfo, id)
+    public ConnectionInfo(ICore core, IntPtr nativePointer, uint id) : base(core,
+        GetBaseObjectPointer(core, nativePointer), BaseObjectType.ConnectionInfo, id)
     {
         ConnectionInfoNativePointer = nativePointer;
     }
@@ -79,6 +79,19 @@ public class ConnectionInfo : BaseObject, IConnectionInfo
             unsafe
             {
                 return Core.Library.Server.ConnectionInfo_GetHwIdExHash(ConnectionInfoNativePointer);
+            }
+        }
+    }
+
+    public string HardwareId3
+    {
+        get
+        {
+            unsafe
+            {
+                var size = 0;
+                return Core.PtrToStringUtf8AndFree(
+                    Core.Library.Server.ConnectionInfo_GetHwId3(ConnectionInfoNativePointer, &size), size);
             }
         }
     }
@@ -274,7 +287,8 @@ public class ConnectionInfo : BaseObject, IConnectionInfo
         {
             unsafe
             {
-                return (CloudAuthResult)Core.Library.Server.ConnectionInfo_GetCloudAuthResult(ConnectionInfoNativePointer);
+                return (CloudAuthResult)Core.Library.Server.ConnectionInfo_GetCloudAuthResult(
+                    ConnectionInfoNativePointer);
             }
         }
     }

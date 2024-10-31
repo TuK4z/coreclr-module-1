@@ -36,6 +36,8 @@ namespace AltV.Net.Elements.Entities
 
         ulong HardwareIdExHash { get; }
 
+        string HardwareId3 { get; }
+
         string AuthToken { get; }
 
         long DiscordId { get; }

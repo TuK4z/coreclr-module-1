@@ -536,6 +536,20 @@ namespace AltV.Net.Elements.Entities
             }
         }
 
+        public string HardwareId3
+        {
+            get
+            {
+                unsafe
+                {
+                    CheckIfEntityExistsOrCached();
+                    var size = 0;
+                    return Core.PtrToStringUtf8AndFree(
+                        Core.Library.Server.Player_GetHwId3(PlayerNativePointer, &size), size);
+                }
+            }
+        }
+
         public string AuthToken
         {
             get
